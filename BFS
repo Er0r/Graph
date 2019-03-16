@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int>adj[100];
+
+int visited[100];
+
+void bfs(int s,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        visited[i]=0;
+    }
+    queue<int>Q;
+    Q.push(s);
+    //cout << Q.front() << endl;
+    visited[s] = 1;
+
+    while(!Q.empty())
+    {
+        int u = Q.front();
+        //cout << u << endl;
+        Q.pop();
+        for(int i=0;i<adj[u].size();i++)
+        {
+            if(visited[adj[u][i]] == 0)
+            {
+                int v = adj[u][i];
+                visited[v] = 1;
+                cout << v << endl;
+                Q.push(v);
+
+            }
+        }
+    }
+}
+
+void addedge(int u,int v)
+{
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
+void printGraph(int v)
+{
+    for(int i=0;i<v;i++)
+    {
+
+         cout << "\n Adjacency list of vertex "
+             << i << "\n head ";
+        for (auto x:adj[i])
+        {
+           cout <<  " -> " << x;
+        }
+        cout << "\n" << endl;
+    }
+}
+int main()
+{
+    int v=7;
+
+    addedge(1,5);
+    addedge(1,2);
+    addedge(2,3);
+    addedge(2,5);
+    addedge(3,4);
+    addedge(4,5);
+    addedge(4,6);
+    //printGraph(v);
+    bfs(6,v);
+}
